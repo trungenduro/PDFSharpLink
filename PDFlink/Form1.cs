@@ -302,5 +302,63 @@ namespace PDFlink
             }
             return textList;
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            // BitMiracle.Docotic.LicenseManager.AddLicenseData("62Z6K-0SCDY-HIN04-J1W2L-JLWZO");
+            List<string> CommentList = new List<string>();
+            List<PdfRectangle> Rectangles = new List<PdfRectangle>();
+            string filename = @"c:\temp\test1.pdf";
+            using (BitMiracle.Docotic.Pdf.PdfDocument Docoticpdf = new BitMiracle.Docotic.Pdf.PdfDocument(filename))
+            {
+
+                PdfRectangle pdfRectangle = new PdfRectangle();
+
+
+
+                for (int PageNo = 0; PageNo < Docoticpdf.Pages.Count; PageNo++)
+                {
+                   
+
+                    var DocoticPage = Docoticpdf.Pages[PageNo];
+
+                    foreach (var obj in DocoticPage.GetObjects())
+                    {
+
+                        if (obj.Type == BitMiracle.Docotic.Pdf.PdfPageObjectType.Text)
+                        {
+                            var Text = (BitMiracle.Docotic.Pdf.PdfTextData)obj;
+
+                            if (Text.Text.Length > 1)
+                            {
+                                XRect rect = new XRect(Text.Position.X,  Text.Bounds.Y , Text.Bounds.Width, Text.Bounds.Height);
+                                CommentList.Add(Text.Text);
+                                //Rectangles.Add(new PdfRectangle(rect));
+                            }
+                        }
+                    }
+
+
+
+
+                
+
+                 
+
+
+
+                   
+
+
+
+                }
+
+
+             
+
+
+            }
+
+        }
     }
 }
